@@ -3,7 +3,7 @@ from django.db.models import F, Sum, Max, Min, Count, Avg, Value
 
 # Create your views here.
 
-from .models import Movie
+from .models import Movie, Director, Actor
 
 
 def show_all_movie(request):
@@ -24,8 +24,33 @@ def show_all_movie(request):
     })
 
 
+def show_all_directors(request):
+    directors = Director.objects.all()
+    return render(request, 'movie_app/all_directors.html', {
+        'directors': directors
+    })
+
+def show_all_actors(request):
+    actors = Actor.objects.all()
+    return render(request, 'movie_app/all_actors.html', {
+        'actors': actors
+    })
+
+
 def show_one_movie(request, slug_movie: str):
     movie = get_object_or_404(Movie, slug=slug_movie)
     return render(request, 'movie_app/one_movie.html', {
         'movie': movie
+    })
+
+def show_one_director(request, id_dir: int):
+    director = get_object_or_404(Director, id=id_dir)
+    return render(request, 'movie_app/one_director.html', {
+        'director': director
+    })
+
+def show_one_actor(request, id_act: int):
+    actor = get_object_or_404(Actor, id=id_act)
+    return render(request, 'movie_app/one_actor.html', {
+        'actor': actor
     })

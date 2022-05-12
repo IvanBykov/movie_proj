@@ -1,0 +1,12 @@
+{% extends 'movie_app/base.html'%}
+
+{% block title %} Актер {% endblock %}
+
+{% block content %}
+
+<h1>Актер</h1>
+<h2> Имя - {{actor.first_name}} </h2>
+<h2> Фамилия - {{actor.last_name}} </h2>
+<h2> Пол - {{actor.gender}} </h2>
+
+{% endblock %}

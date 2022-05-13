@@ -4,9 +4,16 @@
 
 {% block content %}
 
-<h1>Актер</h1>
-<h2> Имя - {{actor.first_name}} </h2>
-<h2> Фамилия - {{actor.last_name}} </h2>
-<h2> Пол - {{actor.gender}} </h2>
+    <h1>Актер</h1>
+    <h2> Имя - {{actor.first_name}} </h2>
+    <h2> Фамилия - {{actor.last_name}} </h2>
+    <h2> Пол - {{actor.gender}} </h2>
+    <hr>
+    <h3> Список фильмов </h3>
+    <ul>
+        {% for movie in actor.movies.all %}
+            <li> {{movie}} </li>
+        {% endfor %}
+    </ul>
 
 {% endblock %}

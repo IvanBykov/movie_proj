@@ -9,6 +9,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 class Director(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
+
     director_email = models.EmailField()
 
     def __str__(self):
@@ -16,6 +17,14 @@ class Director(models.Model):
 
     def get_url(self):
         return reverse('director-detail', args=[self.id])
+
+
+class DressingRoom(models.Model):
+    floor = models.IntegerField()
+    number = models.IntegerField()
+
+    def __str__(self):
+        return f'{self.floor} {self.number}'
 
 
 class Actor(models.Model):
@@ -28,6 +37,7 @@ class Actor(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     gender = models.CharField(max_length=1, choices=GENDERS, default=MALE)
+    dressing = models.OneToOneField(DressingRoom, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         if self.gender == self.MALE:
@@ -56,8 +66,8 @@ class Movie(models.Model):
                                  validators=[MinValueValidator(1)])
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default=RUB)
     slug = models.SlugField(default='', null=False, db_index=True)
-    director = models.ForeignKey(Director, on_delete=models.CASCADE, null=True)
-    actors = models.ManyToManyField(Actor)
+    director = models.ForeignKey(Director, on_delete=models.CASCADE, null=True, related_name='movies')
+    actors = models.ManyToManyField(Actor, related_name='movies')
 
     # def save(self, *args, **kwargs):
     #    self.slug = slugify(self.name)

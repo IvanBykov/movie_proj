@@ -1,5 +1,5 @@
 from django.contrib import admin, messages
-from .models import Movie, Director, Actor
+from .models import Movie, Director, Actor, DressingRoom
 from django.db.models import QuerySet
 
 
@@ -7,6 +7,11 @@ from django.db.models import QuerySet
 
 admin.site.register(Director)
 admin.site.register(Actor)
+# admin.site.register(DressingRoom)
+
+@admin.register(DressingRoom)
+class DressingRoomAdmin(admin.ModelAdmin):
+    list_display = ['floor', 'number', 'actor']
 
 class RatingFilter(admin.SimpleListFilter):
     title = 'Фильтр по рейтингу'

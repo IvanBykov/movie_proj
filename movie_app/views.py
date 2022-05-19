@@ -75,3 +75,4 @@ def show_one_actor(request, id_act: int):
 class DetailActor(DetailView):
     template_name = 'movie_app/one_actor.html'
     model = Actor
+
